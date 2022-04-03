@@ -17,55 +17,68 @@
     <title>Generate Invoice</title>
 </head>
 <body style="background-color: azure;">
+	<div class="row">
+		<div class="col-sm-6">
+		  <div class="card" style="margin-top: 5%; margin-left: 15%; margin-right: 15%; margin-bottom: 5%; background-color: aliceblue; padding: 2%; box-shadow: 0px 0px 5px gray; border-radius: 5px;">
+			<div class="card-body">
+				<h4 style="text-transform:uppercase; text-decoration:underline; text-align: center;">generate Invoice</h4>
+				<div class="mb-3">
+					<label class="form-label">Buyer Name</label>
+					<input type="text" class="form-control" id="name" placeholder="xyz">
+				</div>
+				<div class="mb-3">
+					<label  class="form-label">Buyer PAN</label>
+					<input type="text" class="form-control" id="PAN" placeholder="JMAOSA125T">
+				</div>
+				<div class="mb-3">
+					<label  class="form-label">Buyer Wallet Address</label>
+					<input type="text" class="form-control" id="address" placeholder="0x6f640ff2BdfggfdgdcBd243d5Bb23333f8A2B838F">
+				</div>
+				<div class="mb-3">
+					<label  class="form-label"> Purchase Item</label>
+					<input type="text" class="form-control" id="item" placeholder="Watch">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Purchase Amount</label>
+					<input type="text" class="form-control" id="amount" placeholder="999">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Purchase Date</label>
+					<input type="text" class="form-control" id="date" placeholder="dd/mm/yyyy">
+				</div>
+				<button type="button" class="btn btn-outline-primary" onclick="GenerateInvoice()">Generate Invoice</button>
+			</div>
+		  </div>
+		</div>
+		<div class="col-sm-6">
+		  <div class="card" style="margin-top: 20%; margin-left: 15%; margin-right: 15%; margin-bottom: 5%; background-color: aliceblue; padding: 2%; box-shadow: 0px 0px 5px gray; border-radius: 5px;">
+			<div class="card-body">
+				<div class="mb-3">
+					<label class="form-label">Enter Buyer PAN</label>
+					<input type="text" class="form-control" id="BuyerPAN" placeholder="JMAOSA125T">
+				</div>
+				<button type="button" class="btn btn-outline-primary" onclick="getInvoiceDetails()">Get Invoice Details</button>
+			</div>
+			<div class="card-body">
+				  <div class="mb-3">
+					<div>
+						<div id="result" style=" font-weight: bold; text-align: center; background-color: rgba(194, 194, 194, 0.153);padding:10px;border-radius:15px">
+							---- SELLER DETAILS OUTPUT ----
+						</div>
+						<br>
+						<button type="button" class="btn btn-outline-primary" onclick="getSellerDetails()">Get Seller Details  </button>
+					</div>
+			  </div>
+		  </div>
+		</div>
+	  </div>
+	  <div>
+		  <P id="result1" style=" margin-left:35%; margin-right: 35%; font-weight: bold; padding: 10px; text-align: center; background-color: rgba(194, 194, 194, 0.153); border-radius:15px">
+			  ---- BUYER DETAILS OUTPUT ----
+		  </P>
 
-    <nav style="text-align: center; margin-top: 3%; text-transform: uppercase;">
-        <h4 style="float: left; margin-left: 16%;">Invoice Generate</h4>
-    </nav>
-    <div style="margin-top: 1%;  margin-bottom: 10%;  " >
-        <div style="margin-left: 10%; margin-right: 60%; margin-bottom: 5%; background-color: aliceblue; padding: 2%; box-shadow: 0px 0px 5px gray; border-radius: 5px;">
-        <div class="mb-3">
-            <label class="form-label">Buyer Name</label>
-            <input type="text" class="form-control" id="name" placeholder="xyz">
-        </div>
-        <div class="mb-3">
-            <label  class="form-label">Buyer PAN</label>
-            <input type="text" class="form-control" id="PAN" placeholder="JMAOSA125T">
-        </div>
-		<div class="mb-3">
-            <label  class="form-label">Buyer Wallet Address</label>
-            <input type="text" class="form-control" id="address" placeholder="0x6f640ff2BdfggfdgdcBd243d5Bb23333f8A2B838F">
-        </div>
-		<div class="mb-3">
-            <label  class="form-label"> Purchase Item</label>
-            <input type="text" class="form-control" id="item" placeholder="Watch">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Purchase Amount</label>
-            <input type="text" class="form-control" id="amount" placeholder="999">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Purchase Date</label>
-            <input type="text" class="form-control" id="date" placeholder="dd/mm/yyyy">
-        </div>
-        <button type="button" class="btn btn-outline-primary" onclick="GenerateInvoice()">Generate Invoice</button>
-    </div>
-    <div style="margin-top: -25%; margin-left: 50%; margin-right: 12%; background-color: aliceblue; padding: 2%; box-shadow: 0px 0px 5px gray; border-radius: 5px;">
-        <div class="mb-3">
-            <label class="form-label">Enter Buyer PAN</label>
-            <input type="text" class="form-control" id="BuyerPAN" placeholder="JMAOSA125T">
-        </div>
-        <button type="button" class="btn btn-outline-primary" onclick="getInvoiceDetails()">Get Invoice Details</button>
-    </div>
-
-	<div style="margin-top: -35%; margin-left: 50%; margin-right: 12%; background-color: aliceblue; padding: 2%; box-shadow: 0px 0px 5px gray; border-radius: 5px;">
-        <button type="button" class="btn btn-outline-primary" onclick="getSellerDetails()">Get Seller Details</button>
-    </div>
-    </div>
-
-	<div id="result" style=" text-align: center; margin-bottom: 2%; margin-top: 35%; margin-left: 35%; margin-right: 35%; background-color: rgba(194, 194, 194, 0.153);padding:10px;border-radius:15px">
-		----OUTPUT----
-	</div>
-
+		
+	  </div>
 
     <script>
         provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -226,10 +239,10 @@
      }
 
      function getInvoiceDetails(){
-		var result = document.getElementById('result');
+		var result = document.getElementById('result1');
         var pan = document.getElementById("BuyerPAN").value;
         contract_read.getInvoice(pan).then(function(res){
-			result.innerHTML = `Buyer PAN : ${res[0]}
+			result1.innerHTML = `Buyer PAN : ${res[0]}
 		<br>
 		 <br>
 		 Buyer Name: ${res[1]}
