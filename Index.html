@@ -51,7 +51,7 @@
 		  </div>
 		</div>
 		<div class="col-sm-6">
-		  <div class="card" style="margin-top: 20%; margin-left: 15%; margin-right: 15%; margin-bottom: 5%; background-color: aliceblue; padding: 2%; box-shadow: 0px 0px 5px gray; border-radius: 5px;">
+		  <div class="card" style="margin-top: 15%; margin-left: 15%; margin-right: 15%; margin-bottom: 5%; background-color: aliceblue; padding: 2%; box-shadow: 0px 0px 5px gray; border-radius: 5px;">
 			<div class="card-body">
 				<div class="mb-3">
 					<label class="form-label">Enter Buyer PAN</label>
@@ -59,6 +59,15 @@
 				</div>
 				<button type="button" class="btn btn-outline-primary" onclick="getInvoiceDetails()">Get Invoice Details</button>
 			</div>
+
+			<div class="card-body">
+				<div class="mb-3">
+					<label class="form-label">Enter Seller PAN</label>
+					<input type="text" class="form-control" id="sellerPAN" placeholder="JMAOSA125T">
+				</div>
+				<button type="button" class="btn btn-outline-primary" onclick="setSeller()">Set Seller</button>
+			</div>
+
 			<div class="card-body">
 				  <div class="mb-3">
 					<div>
@@ -93,7 +102,7 @@
 		}
     };
 
-    const contract_address = "0xa50ff4747D9A3CAb3Ea17CfC6F9AbBd3Ca8b45D5";
+    const contract_address = "0xf8CCba29F7928fDCA4b2185de5aE59776DD7351A";
     const contract_abi = [
 	{
 		"inputs": [
@@ -129,6 +138,19 @@
 			}
 		],
 		"name": "BuyItems",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_sellerPAN",
+				"type": "string"
+			}
+		],
+		"name": "setSellerInfo",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -194,27 +216,21 @@
 		"name": "getSellerInfo",
 		"outputs": [
 			{
-				"internalType": "string",
+				"components": [
+					{
+						"internalType": "string",
+						"name": "sellerPAN",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "sellerAddress",
+						"type": "address"
+					}
+				],
+				"internalType": "struct GenerateInvoice.sellerDetails",
 				"name": "",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "sellerPAN",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
+				"type": "tuple"
 			}
 		],
 		"stateMutability": "view",
@@ -234,7 +250,7 @@
 		var item = document.getElementById("item").value;
 		var result = document.getElementById('result');
         contract_write.BuyItems(name, pan, address, item, amount, date)
-		.then(function (result, err) { result.innerHTML = `Invoice Details Stored`; })
+		.then(function (res, err) { result1.innerHTML = `Invoice Details Stored`; })
         .catch(swal("Error", "You are not the seller", "error"));
      }
 
@@ -275,6 +291,14 @@
 			<br>
 			Seller Address: ${res[1]}`;
 		})
+	}
+
+
+	function setSeller(){
+		var pan = document.getElementById('sellerPAN').value;
+
+		contract_write.setSellerInfo(pan)
+		.then(function (res, err) { result.innerHTML = `Seller PAN Added`; })
 	}
     </script>
 
