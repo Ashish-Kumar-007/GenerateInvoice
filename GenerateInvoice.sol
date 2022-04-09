@@ -13,16 +13,22 @@ contract GenerateInvoice{
         string purchaseDate;
     }
     //seller address and seller PAN
-    address seller;
-    string public sellerPAN = "XYZAB145Q";
+    struct sellerDetails{
+        string sellerPAN;
+        address sellerAddress;
+    }
 
     //buyer pan mapping to buyer details
     mapping(string =>buyer) Buyers;
 
     //seller will be the person who deployed the contract
+   address Deployer;
+
     constructor (){
-        seller = msg.sender;  
+        Deployer = msg.sender;  
     }
+
+    sellerDetails Seller;
 
     //take input from seller about buyer
     function BuyItems(string memory _name, 
@@ -32,7 +38,7 @@ contract GenerateInvoice{
     uint _amount, 
     string memory _date) public{
 
-        require(seller == msg.sender, "You are not the seller");
+        require(Deployer == msg.sender, "You are not the seller");
         Buyers[_BuyerPAN].BuyerPAN = _BuyerPAN;
         Buyers[_BuyerPAN].name = _name;
         Buyers[_BuyerPAN].user = _user;
@@ -46,9 +52,14 @@ contract GenerateInvoice{
     function getInvoice(string memory _buyerPAN) public view returns(buyer memory){
     return (Buyers[_buyerPAN]);
     }
+
+    function setSellerInfo(string memory _sellerPAN) public{
+        Seller.sellerPAN = _sellerPAN;
+        Seller.sellerAddress = Deployer;
+    }
     
     //Display the seller details
-    function getSellerInfo() public view returns(string memory, address){
-        return (sellerPAN, seller);
+    function getSellerInfo() public view returns(sellerDetails memory){
+        return Seller;
     }
 }
